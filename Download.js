@@ -107,11 +107,14 @@ module.exports = class Download {
         originalResponse.headers
       )
 
+      if (this.config.useMD5FileName) {
+        finalFileName = finalFileName.replace(/^.*\./, md5 + ".")
+      }
+
       const finalPath = await this._save({
         dataStream,
         finalFileName,
-        originalFileName,
-        md5
+        originalFileName
       })
 
       return {
@@ -268,13 +271,12 @@ module.exports = class Download {
    * @param {{dataStream:stream.Readable,finalFileName:string,originalFileName:string}}
    * @return {Promise<string>} finalPath
    */
-  async _save({ dataStream, finalFileName, originalFileName, md5 }) {
+  async _save({ dataStream, finalFileName, originalFileName }) {
     try {
       if (await this._shouldSkipSaving(originalFileName)) {
         return null
       }
 
-      finalFileName = finalFileName.replace(/^.*\./, md5 + ".")
       finalFileName = await this._handleOnBeforeSave(finalFileName)
 
       var { finalPath, tempPath } = this._getTempAndFinalPath(finalFileName)

@@ -50,6 +50,7 @@ module.exports = class Downloader {
    *
    * @param {object} config
    * @param {string} config.url
+   * @param {boolean} [config.useMD5FileName]
    * @param {string} [config.directory]
    * @param {string} [config.fileName = undefined]
    * @param {boolean} [config.cloneFiles=true] true will create a duplicate. false will overwrite the existing file.
@@ -124,13 +125,15 @@ module.exports = class Downloader {
       onBeforeSave,
       onProgress,
       shouldBufferResponse,
-      useSynchronousMode
+      useSynchronousMode,
+      useMD5FileName
     } = that.config
 
     //Repeat downloading process until success
     const { filePath, downloadStatus, md5 } = await that._makeUntilSuccessful(
       async () => {
         const download = new Download({
+          useMD5FileName,
           url,
           directory,
           fileName,

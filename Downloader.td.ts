@@ -5,6 +5,7 @@ interface DownloaderConfig {
   url: string
   directory?: string
   fileName?: string
+  useMD5FileName?: boolean
   cloneFiles?: boolean
   skipExistingFileName?: boolean
   timeout?: number
