@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-file-downloader",
+  "name": "@ourongxing/nodejs-file-downloader",
   "version": "4.11.2",
   "description": "A file downloader for NodeJs",
   "main": "Downloader.js",
