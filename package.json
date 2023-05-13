@@ -1,6 +1,6 @@
 {
-  "name": "@ourongxing/nodejs-file-downloader",
-  "version": "4.11.2",
+  "name": "@ourongxing/downloader",
+  "version": "4.11.3",
   "description": "A file downloader for NodeJs",
   "main": "Downloader.js",
   "scripts": {
