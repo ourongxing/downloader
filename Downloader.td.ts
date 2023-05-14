@@ -22,15 +22,16 @@ interface DownloaderConfig {
   useSynchronousMode?: boolean
 }
 
-type DownloaderReport = {
-  downloadStatus: "ABORTED"
-} & {
-  downloadStatus: "COMPLETE"
-  filePath: string
-  fileName: string
-  fileMD5: string
-}
-
+type DownloaderReport =
+  | {
+      downloadStatus: "ABORTED"
+    }
+  | {
+      downloadStatus: "COMPLETE"
+      filePath: string
+      fileName: string
+      fileMD5: string
+    }
 declare class Downloader {
   constructor(config: DownloaderConfig)
 
