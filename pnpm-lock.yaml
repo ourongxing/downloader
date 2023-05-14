@@ -33,6 +33,9 @@ devDependencies:
   nock:
     specifier: ^13.0.4
     version: registry.npmmirror.com/nock@13.0.4
+  nodejs-file-downloader:
+    specifier: ^4.11.2
+    version: registry.npmmirror.com/nodejs-file-downloader@4.11.2
   rimraf:
     specifier: ^3.0.2
     version: registry.npmmirror.com/rimraf@3.0.2
@@ -179,7 +182,6 @@ packages:
       debug: registry.npmmirror.com/debug@4.3.4(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   registry.npmmirror.com/ansi-colors@4.1.1:
     resolution: {integrity: sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ansi-colors/-/ansi-colors-4.1.1.tgz}
@@ -721,7 +723,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-    dev: false
 
   registry.npmmirror.com/form-data@3.0.1:
     resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/form-data/-/form-data-3.0.1.tgz}
@@ -907,7 +908,6 @@ packages:
       debug: registry.npmmirror.com/debug@4.3.4(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   registry.npmmirror.com/iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/iconv-lite/-/iconv-lite-0.4.24.tgz}
@@ -1303,6 +1303,20 @@ packages:
       - supports-color
     dev: true
 
+  registry.npmmirror.com/nodejs-file-downloader@4.11.2:
+    resolution: {integrity: sha512-zgLlQcGnYD18R0vGQc8qLUovwQdVvVCKsB5xqO2FMvymWArikhhCuILkTtOuTTOtlnKgJ3RAL8N5efRGdNW3Uw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nodejs-file-downloader/-/nodejs-file-downloader-4.11.2.tgz}
+    name: nodejs-file-downloader
+    version: 4.11.2
+    dependencies:
+      follow-redirects: registry.npmmirror.com/follow-redirects@1.15.1
+      https-proxy-agent: registry.npmmirror.com/https-proxy-agent@5.0.0
+      mime-types: registry.npmmirror.com/mime-types@2.1.35
+      sanitize-filename: registry.npmmirror.com/sanitize-filename@1.6.3
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+    dev: true
+
   registry.npmmirror.com/normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/normalize-path/-/normalize-path-3.0.0.tgz}
     name: normalize-path
@@ -1541,7 +1555,6 @@ packages:
     version: 1.6.3
     dependencies:
       truncate-utf8-bytes: registry.npmmirror.com/truncate-utf8-bytes@1.0.2
-    dev: false
 
   registry.npmmirror.com/semver@7.5.0:
     resolution: {integrity: sha512-+XC0AD/R7Q2mPSRuy2Id0+CGTZ98+8f+KvwirxOKIEyid+XSx6HbC63p+O4IndTHuX5Z+JxQ0TghCkO5Cg/2HA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/semver/-/semver-7.5.0.tgz}
@@ -1754,7 +1767,6 @@ packages:
     version: 1.0.2
     dependencies:
       utf8-byte-length: registry.npmmirror.com/utf8-byte-length@1.0.4
-    dev: false
 
   registry.npmmirror.com/type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/type-is/-/type-is-1.6.18.tgz}
@@ -1777,7 +1789,6 @@ packages:
     resolution: {integrity: sha512-4+wkEYLBbWxqTahEsWrhxepcoVOJ+1z5PGIjPZxRkytcdSUaNjIjBM7Xn8E+pdSuV7SzvWovBFA54FO0JSoqhA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/utf8-byte-length/-/utf8-byte-length-1.0.4.tgz}
     name: utf8-byte-length
     version: 1.0.4
-    dev: false
 
   registry.npmmirror.com/util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/util-deprecate/-/util-deprecate-1.0.2.tgz}

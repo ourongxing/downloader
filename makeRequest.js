@@ -43,11 +43,9 @@ function makeRequest(url, config = {}) {
     ])
 
     const responseIter = response[Symbol.asyncIterator]()
-
     const data = (async function* () {
       try {
-        const chunkSize = 1024 * 1024 // 每个分块的大小，这里设置为 1MB
-        let buffer = Buffer.alloc(0) // 缓存数据的 Buffer
+        const hash = crypto.createHash("md5")
         while (true) {
           const item = await Promise.race([
             responseIter.next(),
@@ -57,32 +55,26 @@ function makeRequest(url, config = {}) {
           if (item.done) {
             break
           }
-          buffer = Buffer.concat([buffer, item.value]) // 将获取到的数据追加到缓存 Buffer 中
-          while (buffer.length >= chunkSize) {
-            const chunk = buffer.slice(0, chunkSize) // 取出一个分块
-            buffer = buffer.slice(chunkSize) // 从缓存 Buffer 中移除已经取出的分块
-            const md5 = crypto.createHash("md5").update(chunk).digest("hex") // 计算分块的 md5 值
-            yield { buffer: chunk, md5 } // 将 buffer 和 md5 作为对象返回
-          }
+          hash.update(item.value)
+          yield { buffer: item.value }
         }
-        if (buffer.length > 0) {
-          // 处理最后不足一个分块大小的数据
-          const md5 = crypto.createHash("md5").update(buffer).digest("hex")
-          yield { buffer, md5 }
-        }
+        const md5 = hash.digest("hex")
+        yield { md5 }
       } catch (error) {
         abort(request._currentRequest)
         throw error
       }
     })()
 
-    let _buffer
-    let _md5
+    const _buffer = []
+    let _md5 = ""
     for await (const { buffer, md5 } of data) {
-      _buffer = buffer
-      _md5 = md5
+      if (buffer) {
+        _buffer.push(buffer)
+      } else {
+        _md5 = md5
+      }
     }
-
     return {
       dataStream: Readable.from(_buffer),
       md5: _md5,
