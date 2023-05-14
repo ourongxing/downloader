@@ -130,32 +130,35 @@ module.exports = class Downloader {
     } = that.config
 
     //Repeat downloading process until success
-    const { filePath, downloadStatus, md5 } = await that._makeUntilSuccessful(
-      async () => {
-        const download = new Download({
-          useMD5FileName,
-          url,
-          directory,
-          fileName,
-          cloneFiles,
-          skipExistingFileName,
-          timeout,
-          headers,
-          httpsAgent,
-          proxy,
-          onResponse,
-          onBeforeSave,
-          onProgress,
-          shouldBufferResponse,
-          useSynchronousMode
-        })
-        this._currentDownload = download
+    const {
+      filePath,
+      downloadStatus,
+      fileName: _fileName,
+      fileMD5
+    } = await that._makeUntilSuccessful(async () => {
+      const download = new Download({
+        useMD5FileName,
+        url,
+        directory,
+        fileName,
+        cloneFiles,
+        skipExistingFileName,
+        timeout,
+        headers,
+        httpsAgent,
+        proxy,
+        onResponse,
+        onBeforeSave,
+        onProgress,
+        shouldBufferResponse,
+        useSynchronousMode
+      })
+      this._currentDownload = download
 
-        return await download.start()
-      }
-    )
+      return await download.start()
+    })
 
-    return { filePath, downloadStatus, md5 }
+    return { filePath, downloadStatus, fileMD5, fileName: _fileName }
   }
 
   /**

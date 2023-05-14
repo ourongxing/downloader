@@ -118,7 +118,8 @@ module.exports = class Download {
       })
 
       return {
-        md5,
+        fileMD5: md5,
+        fileName: finalFileName,
         filePath: finalPath,
         downloadStatus: finalPath
           ? downloadStatusEnum.COMPLETE
