@@ -5,7 +5,7 @@ interface DownloaderConfig {
   url: string
   directory?: string
   fileName?: string
-  useMD5FileName?: boolean
+  useHashFileName?: boolean
   cloneFiles?: boolean
   skipExistingFileName?: boolean
   timeout?: number
@@ -30,7 +30,7 @@ type DownloaderReport =
       downloadStatus: "COMPLETE"
       filePath: string
       fileName: string
-      fileMD5: string
+      fileHash: string
     }
 declare class Downloader {
   constructor(config: DownloaderConfig)

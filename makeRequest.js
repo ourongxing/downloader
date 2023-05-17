@@ -1,6 +1,6 @@
 const { http, https } = require("follow-redirects")
 const { Readable } = require("stream")
-const crypto = require("crypto")
+const murmur = require("murmurhash-native/stream")
 
 function makeRequest(url, config = {}) {
   let cancelPromiseReject
@@ -45,7 +45,7 @@ function makeRequest(url, config = {}) {
     const responseIter = response[Symbol.asyncIterator]()
     const data = (async function* () {
       try {
-        const hash = crypto.createHash("md5")
+        const hash = murmur.createHash("murmurhash128x64")
         while (true) {
           const item = await Promise.race([
             responseIter.next(),
@@ -58,8 +58,9 @@ function makeRequest(url, config = {}) {
           hash.update(item.value)
           yield { buffer: item.value }
         }
-        const md5 = hash.digest("hex")
-        yield { md5 }
+        yield {
+          hash: hash.digest("hex")
+        }
       } catch (error) {
         abort(request._currentRequest)
         throw error
@@ -67,17 +68,17 @@ function makeRequest(url, config = {}) {
     })()
 
     const _buffer = []
-    let _md5 = ""
-    for await (const { buffer, md5 } of data) {
+    let _hash = ""
+    for await (const { buffer, hash } of data) {
       if (buffer) {
         _buffer.push(buffer)
       } else {
-        _md5 = md5
+        _hash = hash
       }
     }
     return {
       dataStream: Readable.from(_buffer),
-      md5: _md5,
+      hash: _hash,
       originalResponse: response // The original
     }
   }

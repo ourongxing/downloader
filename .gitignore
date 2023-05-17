@@ -10,3 +10,4 @@ downloads/
 !fixtures/
 index.js
 output/
+test.ts

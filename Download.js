@@ -87,7 +87,7 @@ module.exports = class Download {
     }
 
     try {
-      const { dataStream, originalResponse, md5 } = await this._request()
+      const { dataStream, originalResponse, hash } = await this._request()
 
       this.originalResponse = originalResponse
 
@@ -107,8 +107,8 @@ module.exports = class Download {
         originalResponse.headers
       )
 
-      if (this.config.useMD5FileName) {
-        finalFileName = finalFileName.replace(/^.*\./, md5 + ".")
+      if (this.config.useHashFileName) {
+        finalFileName = finalFileName.replace(/^.*\./, hash + ".")
       }
 
       const finalPath = await this._save({
@@ -118,7 +118,7 @@ module.exports = class Download {
       })
 
       return {
-        fileMD5: md5,
+        fileHash: hash,
         fileName: finalFileName,
         filePath: finalPath,
         downloadStatus: finalPath
@@ -191,12 +191,12 @@ module.exports = class Download {
     if (isDataUrl(this.config.url)) {
       return this._mimic_RequestForDataUrl(this.config.url)
     } else {
-      const { dataStream, originalResponse, md5 } = await this._makeRequest()
+      const { dataStream, originalResponse, hash } = await this._makeRequest()
       const headers = originalResponse.headers
       const contentLength =
         headers["content-length"] || headers["Content-Length"]
       this.fileSize = parseInt(contentLength)
-      return { dataStream, originalResponse, md5 }
+      return { dataStream, originalResponse, hash }
     }
   }
 
@@ -313,9 +313,9 @@ module.exports = class Download {
 
     const { makeRequestIter, cancel } = makeRequest(url, options)
     this.cancelCb = cancel
-    const { dataStream, originalResponse, md5 } = await makeRequestIter()
+    const { dataStream, originalResponse, hash } = await makeRequestIter()
 
-    return { dataStream, originalResponse, md5 }
+    return { dataStream, originalResponse, hash }
   }
 
   _getProgressStream() {
