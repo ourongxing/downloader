@@ -1,6 +1,6 @@
 const { http, https } = require("follow-redirects")
 const { Readable } = require("stream")
-const murmur = require("murmurhash-native/stream")
+const crypto = require("crypto")
 
 function makeRequest(url, config = {}) {
   let cancelPromiseReject
@@ -45,7 +45,7 @@ function makeRequest(url, config = {}) {
     const responseIter = response[Symbol.asyncIterator]()
     const data = (async function* () {
       try {
-        const hash = murmur.createHash("murmurhash128x64")
+        const hash = crypto.createHash("md5")
         while (true) {
           const item = await Promise.race([
             responseIter.next(),

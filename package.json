@@ -1,6 +1,6 @@
 {
   "name": "@ourongxing/downloader",
-  "version": "4.11.7",
+  "version": "5.0.1",
   "description": "A file downloader for NodeJs",
   "main": "Downloader.js",
   "scripts": {
@@ -26,7 +26,6 @@
     "follow-redirects": "^1.15.1",
     "https-proxy-agent": "^5.0.0",
     "mime-types": "^2.1.27",
-    "murmurhash-native": "^3.5.0",
     "sanitize-filename": "^1.6.3"
   },
   "devDependencies": {
